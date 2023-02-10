@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: model-deployment
+  labels:
+    app: model
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: model
+  template:
+    metadata:
+      labels:
+        app: model
+    spec:
+      containers:
+        - name: model
+          image: dmitry030309/project_model:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: aws_access_key_id
+              valueFrom:
+                secretKeyRef:
+                  name: for-boto3
+                  key: aws_access_key_id
+            - name: aws_secret_access_key
+              valueFrom:
+                secretKeyRef:
+                  name: for-boto3
+                  key: aws_secret_access_key
+            - name: region
+              valueFrom:
+                secretKeyRef:
+                  name: for-boto3
+                  key: region
