@@ -84,10 +84,10 @@ python3 client.py --host 127.0.0.1 --port 80
     cd ~/work/MLOps_plus/mlops_k8s_homework
     kubectl apply -f k8s/deployment.yml
 
-    # Доступность внутри k8s
+    Доступность внутри k8s
     kubectl apply -f k8s/service.yml
 
-    # Доступность за пределами k8s
+    Доступность за пределами k8s
     kubectl apply -f k8s/load-balancer.yaml
 
 2) Проверяем что все запустилось
