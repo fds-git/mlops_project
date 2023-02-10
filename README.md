@@ -86,7 +86,7 @@
 		[default]
   		region=ru-central1
 		MLFLOW_S3_ENDPOINT_URL=https://storage.yandexcloud.net
-		MLFLOW_TRACKING_URI=http://10.129.0.26:8000 (внутренний адрес ВМ с MLFlow) (или http://localhost:8000)
+		MLFLOW_TRACKING_URI=http://10.129.0.29:8000 (внутренний адрес ВМ с MLFlow) (или http://localhost:8000)
 
 14) Создать файл:
 
@@ -187,7 +187,7 @@
 
 		sudo apt update
 		sudo apt install git
-		git clone https://github.com/fds-git/MLOps.git
+		git clone https://github.com/fds-git/mlops_project.git
 
 33) Установить необходимые библиотеки (через sudo, иначе скрипт генерации run_generate_script.py не запустится на кластере так как не увидит numpy, pandas и т.д.)
 
@@ -208,8 +208,8 @@
 		sudo nano /etc/environment
 
 		MLFLOW_S3_ENDPOINT_URL=https://storage.yandexcloud.net
-		MLFLOW_TRACKING_URI=http://10.129.0.30:8000 (внутренний адрес ВМ с MLFlow)
-		WORKPATH="/home/ubuntu/MLOps/airflow_dataproc_mlflow_validation/for_dataproc/scripts"
+		MLFLOW_TRACKING_URI=http://10.129.0.29:8000 (внутренний адрес ВМ с MLFlow)
+		WORKPATH="/home/ubuntu/mlops_project/dataproc"
 
 36) Создать файл:
 
@@ -233,15 +233,35 @@
 		#conda install -c anaconda ipykernel
 		#python -m ipykernel install --user --name ex --display-name "Python (mlflow)"
 
+39) Устанавливаем и настраиваем утилиту YC
+
+		curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+	
+	Скопировать токен для учетки yandex и вставить при вызове приведенной ниже команды
+		
+		yc init
+	
+	Проверить настройки и сгенерировать .kube/config для доступа к кластеру mykuber
+
+		yc config list
+		yc managed-kubernetes cluster get-credentials mykuber --external
+
+40) Устанавливаем и настраиваем утилиту kubectl
+
+		curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+		chmod +x ./kubectl
+		sudo mv ./kubectl /usr/local/bin/kubectl
+		kubectl version --client
+
 ## Завершение настройки и запуск всей системы
 
 39) Через WEB-интерфейс AirFlow в разделе Admin Variables задаем переменные окружения (внутренний адрес мастерноды Spark-кластера, адрес порта для SSH-соединения, расположение приватного ключа, имя пользователя, под которым будет быполняться подключение и директория, в которой находятся скрипты на кластере Data Proc)
 
-- DATAPROC_IP 10.129.0.13
+- DATAPROC_IP 10.129.0.39
 - DATAPROC_PORT 22
 - KEY_FILE /home/dima/id_rsa
 - USERNAME ubuntu
-- WORKPATH /home/ubuntu/MLOps/airflow_dataproc_mlflow_validation/for_dataproc/scripts
+- WORKPATH /home/ubuntu/mlops_project/dataproc
 
 40) Запускаем переключателем DAG. Через некоторое время можем увидеть выполненные экземпляры DAG'a, внутри будут выполненные таски run_generate, в логах можно посмотреть результаты работы.
 
