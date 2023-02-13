@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./service
-          file: ./Dockerfile
+          file: ./service/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/project_model
 
