@@ -22,6 +22,9 @@ jobs:
       - name: Check PEP8 compliance
         run: |
           black --check --verbose service
+      - name: Lint with mypy
+        run: |
+          mypy service
       - name: Unit Integration tests with pytest
         run: |
           pytest
