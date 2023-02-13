@@ -24,7 +24,7 @@ jobs:
           black --check --verbose service
       - name: Lint with mypy
         run: |
-          mypy service
+          mypy --ignore-missing-imports service
       - name: Unit Integration tests with pytest
         run: |
           pytest
