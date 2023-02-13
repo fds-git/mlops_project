@@ -166,9 +166,9 @@
 		
 28) Создаем новый DAG
 
-		sudo nano /home/airflow/dags/run_generate_script.py
+		sudo nano /home/airflow/dags/manager.py
 
-	Копируем содержимое run_generate_script.py из репозитория MLOps/airflow_dataproc_mlflow_validation/for_airflow в только что созданный run_generate_script.py и сохраняем изменения
+	Копируем содержимое manager.py из репозитория mlops_project/airflow/ в только что созданный manager.py и сохраняем изменения
 
 ## Настройка Hadoop-кластера (DataProc)
 
@@ -189,7 +189,7 @@
 		sudo apt install git
 		git clone https://github.com/fds-git/mlops_project.git
 
-33) Установить необходимые библиотеки (через sudo, иначе скрипт генерации run_generate_script.py не запустится на кластере так как не увидит numpy, pandas и т.д.)
+33) Установить необходимые библиотеки (через sudo, иначе скрипт генерации manager.py не запустится на кластере так как не увидит numpy, pandas и т.д.)
 
 		sudo apt install python3-pip
 		sudo pip install numpy
@@ -230,6 +230,7 @@
 		pip install matplotlib
 		pip install sklearn
 		pip install boto3
+		sudo pip install boto3 Без sudo скрипт, запускаемый через airflow, не увидит boto3
 		#conda install -c anaconda ipykernel
 		#python -m ipykernel install --user --name ex --display-name "Python (mlflow)"
 
