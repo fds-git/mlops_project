@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.VectorAssembler","timestamp":1675782439226,"sparkVersion":"3.0.3","uid":"VectorAssembler_136cf92d02d9","paramMap":{"outputCol":"mean_amount_vec","inputCols":["mean_amount"]},"defaultParamMap":{"outputCol":"VectorAssembler_136cf92d02d9__output","handleInvalid":"error"}}

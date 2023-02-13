@@ -113,6 +113,6 @@ python3 client.py --host 127.0.0.1 --port 80
 
     python3 service/client.py -host 51.250.70.250 -port 80
 
-3) Редеплой можно сделать этой командой
+3) Редеплой можно сделать этой командой (но сервисы некоторое время будут недоступны)
 
     kubectl replace --force -f k8s/deployment.yml

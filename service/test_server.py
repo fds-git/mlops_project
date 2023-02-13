@@ -18,55 +18,54 @@ def test_healthcheck():
 
 def test_predict():
     """Тестирование обработки одного значения"""
-    passenger = {
-        "Name": "John",
-        "Pclass": 1,
-        "Sex": "male",
-        "Age": 27,
-        "Embarked": "S",
-        "Fare": 100,
-        "SibSp": 0,
-        "Parch": 0,
-        "Ticket": "C101",
-        "Cabin": "ST",
+    transaction = {
+        "TX_AMOUNT": 40.0,
+        "x_customer_id": 36.5,
+        "y_customer_id": 26.5,
+        "mean_amount": 52.1,
+        "std_amount": 26.1,
+        "mean_nb_tx_per_day": 2.71,
+        "x_terminal_id": 40.1,
+        "y_terminal_id": 23.7,
+        "day_of_week": 1,
+        "hour": 0,
     }
-
-    response = client.post("/predict?passenger_id=1", json=passenger, timeout=30)
+    response = client.post("/predict", json=transaction, timeout=30)
     assert response.status_code == 200
-    assert response.json() == {"passenger_id": 1, "survived": 0}
+    assert response.json() == {"isfraud":0}
 
 
 def test_batch():
     """Тестирование обработки батча"""
-    passengers = {
-        "passengers": [
+    transactions = {
+        "transactions": [
             {
-                "Name": "John",
-                "Pclass": 1,
-                "Sex": "male",
-                "Age": 27,
-                "Embarked": "S",
-                "Fare": 100,
-                "SibSp": 0,
-                "Parch": 0,
-                "Ticket": "C101",
-                "Cabin": "ST",
+                "TX_AMOUNT": 40.0,
+                "x_customer_id": 36.5,
+                "y_customer_id": 26.5,
+                "mean_amount": 52.1,
+                "std_amount": 26.1,
+                "mean_nb_tx_per_day": 2.71,
+                "x_terminal_id": 40.1,
+                "y_terminal_id": 23.7,
+                "day_of_week": 1,
+                "hour": 0,
             },
             {
-                "Name": "Anna",
-                "Pclass": 1,
-                "Sex": "female",
-                "Age": 27,
-                "Embarked": "S",
-                "Fare": 100,
-                "SibSp": 0,
-                "Parch": 0,
-                "Ticket": "C101",
-                "Cabin": "ST",
+                "TX_AMOUNT": 400.0,
+                "x_customer_id": 36.5,
+                "y_customer_id": 26.5,
+                "mean_amount": 52.1,
+                "std_amount": 26.1,
+                "mean_nb_tx_per_day": 2.71,
+                "x_terminal_id": 40.1,
+                "y_terminal_id": 23.7,
+                "day_of_week": 5,
+                "hour": 12,
             },
         ]
     }
 
-    response = client.post("/predict_batch", json=passengers, timeout=30)
+    response = client.post("/predict_batch", json=transactions, timeout=30)
     assert response.status_code == 200
-    assert response.json() == {"survived": [0, 1]}
+    assert response.json() == {"isfraud":[0.0,0.0]}

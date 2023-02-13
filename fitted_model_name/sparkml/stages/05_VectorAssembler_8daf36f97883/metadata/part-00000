@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.VectorAssembler","timestamp":1675782439855,"sparkVersion":"3.0.3","uid":"VectorAssembler_8daf36f97883","paramMap":{"outputCol":"mean_nb_tx_per_day_vec","inputCols":["mean_nb_tx_per_day"]},"defaultParamMap":{"outputCol":"VectorAssembler_8daf36f97883__output","handleInvalid":"error"}}
