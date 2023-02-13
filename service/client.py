@@ -32,9 +32,7 @@ def main():
         "day_of_week": 1,
         "hour": 0,
     }
-    response = requests.post(
-        url + "/predict", json=transaction, timeout=30
-    )
+    response = requests.post(url + "/predict", json=transaction, timeout=30)
     print("status code: ", response.status_code)
     print("content: ", response.content)
 

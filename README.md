@@ -322,9 +322,3 @@
 - использовать mlflow.pyspark.ml.autolog для логирования всех промежуточных значений гиперпараметров если выполняем поиск гиперпараметров с помощью pyspark
 
 - не забывать после каждого изменения в файле /etc/environment перезагружать ВМ, чтобы переменные окружения обновились
-
-## To Do
-
-48) Разобраться, как через nginx задать пользователя и пароль для MLFlow: https://stackoverflow.com/questions/58956459/how-to-run-authentication-on-a-mlflow-server
-
-49) Разобраться как использовать systemd для автоматического перезапуска задач https://pedro-munoz.tech/how-to-setup-mlflow-in-production/

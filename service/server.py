@@ -87,7 +87,7 @@ def predict_batch(transactions: TransactionList):
     if Model.pipeline is None:
         raise HTTPException(status_code=503, detail="No model loaded")
     try:
-        pred = Model.pipeline.predict(dataframe)#.tolist()
+        pred = Model.pipeline.predict(dataframe)  # .tolist()
     except Exception as exept:
         raise HTTPException(status_code=400, detail=str(exept))
 

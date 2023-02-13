@@ -32,7 +32,7 @@ def test_predict():
     }
     response = client.post("/predict", json=transaction, timeout=30)
     assert response.status_code == 200
-    assert response.json() == {"isfraud":0}
+    assert response.json() == {"isfraud": 0}
 
 
 def test_batch():
@@ -68,4 +68,4 @@ def test_batch():
 
     response = client.post("/predict_batch", json=transactions, timeout=30)
     assert response.status_code == 200
-    assert response.json() == {"isfraud":[0.0,0.0]}
+    assert response.json() == {"isfraud": [0.0, 0.0]}
