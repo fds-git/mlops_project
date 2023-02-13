@@ -2,7 +2,6 @@
 
 from typing import Optional, List
 import os
-import pickle
 import pandas as pd
 import numpy as np
 from fastapi import FastAPI, HTTPException

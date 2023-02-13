@@ -1,4 +1,4 @@
-from airflow import DAG, XComArg
+from airflow import DAG
 from airflow.providers.ssh.operators.ssh import SSHOperator
 from airflow.providers.ssh.hooks.ssh import SSHHook
 from datetime import datetime, timedelta
@@ -28,7 +28,13 @@ WORKPATH = Variable.get("WORKPATH")
 # далее этот XCOM можно передавать как параметр в этой же команде
 EXPRESSION_TO_GET_XCOM = '{{ ti.xcom_pull(task_ids="decode_generated_file_name") }}'
 
-sshHook = SSHHook(remote_host=DATAPROC_IP, port=DATAPROC_PORT, username=USERNAME, key_file=KEY_FILE, timeout=1000)
+sshHook = SSHHook(
+    remote_host=DATAPROC_IP, 
+    port=DATAPROC_PORT, 
+    username=USERNAME, 
+    key_file=KEY_FILE, timeout=1000
+)
+
 generate_command = f'bash {WORKPATH}/generate.sh '
 to_hdfs_command = f'bash {WORKPATH}/to_hdfs.sh {EXPRESSION_TO_GET_XCOM}'
 process_command = f'bash {WORKPATH}/data_process.sh {EXPRESSION_TO_GET_XCOM}'
@@ -89,4 +95,5 @@ with DAG('pipeline',
     command=redeploy_command
     )
 
-    generate_task >> decoder >> to_hdfs_task >> process_task >> fit_rand_forest_task >> upload_model_task >> redeploy_task
+    generate_task >> decoder >> to_hdfs_task >> process_task >> fit_rand_forest_task >>\
+        upload_model_task >> redeploy_task
